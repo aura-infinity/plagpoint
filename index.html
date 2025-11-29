@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="authour" content="PlagPoint Electronics">
+    <meta name="location" content="Tanzania">
+    <meta name="description" content="Electronics and phone accessories seller">
+    <meta name="description" content="Muuzaji wa Vifaa vya simu na vifaa vya umeme">
+    <title>PlugPoint | Your Tech Accessories Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0e27;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
+        }
+
+        .circuit-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, #00d9ff, transparent);
+            height: 2px;
+            width: 200px;
+            opacity: 0.3;
+            animation: circuit-flow 8s linear infinite;
+        }
+
+        @keyframes circuit-flow {
+            0% {
+                transform: translateX(-100vw);
+            }
+            100% {
+                transform: translateX(100vw);
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 217, 255, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse-glow 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.8;
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            padding: 20px;
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00d9ff 0%, #7b2ff7 50%, #ff006e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            animation: gradient-shift 3s ease infinite;
+            background-size: 200% 200%;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .tagline {
+            font-size: 1.6rem;
+            color: #00d9ff;
+            margin-bottom: 15px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.5s;
+            font-weight: 300;
+        }
+
+        .subtagline {
+            font-size: 1.1rem;
+            color: #a0a0a0;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.8s;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 1.2s;
+        }
+
+        .cta-button {
+            padding: 16px 40px;
+            background: linear-gradient(135deg, #00d9ff, #7b2ff7);
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.5);
+        }
+
+        .cta-button-secondary {
+            background: transparent;
+            border: 2px solid #00d9ff;
+        }
+
+        .cta-button-secondary:hover {
+            background: rgba(0, 217, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Products Section */
+        .products {
+            padding: 100px 20px;
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 217, 255, 0.03) 100%);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #00d9ff, #7b2ff7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #a0a0a0;
+            font-size: 1.1rem;
+            margin-bottom: 60px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .product-card:hover::before {
+            left: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #00d9ff;
+            box-shadow: 0 20px 40px rgba(0, 217, 255, 0.2);
+            background: rgba(0, 217, 255, 0.05);
+        }
+
+        .product-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 20px rgba(0, 217, 255, 0.5));
+        }
+
+        .product-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #00d9ff;
+            font-weight: 600;
+        }
+
+        .product-description {
+            color: #b0b0b0;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: scale(1.05);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7b2ff7, #ff006e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: 0 10px 30px rgba(123, 47, 247, 0.4);
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .feature-description {
+            color: #a0a0a0;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 20px;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .cta-box {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(123, 47, 247, 0.1));
+            border-radius: 30px;
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            animation: rotate-gradient 10s linear infinite;
+        }
+
+        @keyframes rotate-gradient {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .cta-box-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #00d9ff, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cta-text {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            margin-bottom: 30px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(0, 217, 255, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            color: #a0a0a0;
+            margin-bottom: 10px;
+        }
+
+        .footer-highlight {
+            color: #00d9ff;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.8rem;
+            }
+
+            .tagline {
+                font-size: 1.3rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-button {
+                width: 80%;
+                max-width: 300px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Glowing dots */
+        .glow-dot {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #00d9ff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00d9ff;
+            opacity: 0.6;
+            animation: float-dot 8s infinite ease-in-out;
+        }
+
+        @keyframes float-dot {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            25% {
+                transform: translate(50px, -50px);
+            }
+            50% {
+                transform: translate(100px, 0);
+            }
+            75% {
+                transform: translate(50px, 50px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation" id="bg-animation"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="logo">PlagPoint</h1>
+            <p class="tagline">Power Up Your Tech Life</p>
+            <p class="subtagline">Premium electrical & phone accessories at your fingertips</p>
+            <div class="cta-buttons">
+                <a href="products.html" class="cta-button">Browse Products</a>
+                <a href="tel:+255759927232" class="cta-button cta-button-secondary">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <h2 class="section-title">What We Offer</h2>
+        <p class="section-subtitle">Quality accessories for all your devices</p>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-icon">📱</div>
+                <h3 class="product-title">Phone Accessories</h3>
+                <p class="product-description">Cases, screen protectors, pop sockets, phone stands, and more to keep your device protected and stylish</p>
+            </div>
+            <div class="product-card">
+                <div class="product-icon">🔌</div>
+                <h3 class="product-title">Chargers & Cables</h3>
+                <p class="product-description">Fast chargers, USB cables, wireless charging pads, and power banks for all your charging needs</p>
+            </div>
+            <div class="product-card">
+                <div class="product-icon">🎧</div>
+                <h3 class="product-title">Audio Accessories</h3>
+                <p class="product-description">Earphones, headphones, Bluetooth speakers, and audio adapters for the perfect sound experience</p>
+            </div>
+            <div class="product-card">
+                <div class="product-icon">⚡</div>
+                <h3 class="product-title">Electrical Accessories</h3>
+                <p class="product-description">Extension cords, adapters, surge protectors, and power strips for home and office use</p>
+            </div>
+            <div class="product-card">
+                <div class="product-icon">💡</div>
+                <h3 class="product-title">Smart Accessories</h3>
+                <p class="product-description">Smart plugs, LED lights, remote controls, and other innovative tech accessories</p>
+            </div>
+            <div class="product-card">
+                <div class="product-icon">🔋</div>
+                <h3 class="product-title">Power Solutions</h3>
+                <p class="product-description">Portable batteries, power banks, solar chargers, and backup power options</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2 class="section-title">Why Choose PlagPoint?</h2>
+        <div class="features-container">
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <h3 class="feature-title">Quality Guaranteed</h3>
+                <p class="feature-description">Only authentic, tested products from trusted brands</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Fast Service</h3>
+                <p class="feature-description">Quick response times and efficient customer support</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">💰</div>
+                <h3 class="feature-title">Best Prices</h3>
+                <p class="feature-description">Competitive pricing on all accessories</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">Wide Selection</h3>
+                <p class="feature-description">Extensive range of products for all devices</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <div class="cta-box">
+            <div class="cta-box-content">
+                <h2 class="cta-title">Ready to Upgrade?</h2>
+                <p class="cta-text">Get in touch with us today and discover the perfect accessories for your devices</p>
+                <a href="tel:+255759927232" class="cta-button">Contact Us Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p class="footer-text">&copy; 2024 <span class="footer-highlight">PlagPoint</span>. All rights reserved.</p>
+            <p class="footer-text">Your trusted source for electrical and phone accessories</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Create circuit lines
+        function createCircuitLine() {
+            const line = document.createElement('div');
+            line.className = 'circuit-line';
+            line.style.top = Math.random() * 100 + '%';
+            line.style.animationDelay = Math.random() * 5 + 's';
+            line.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            document.getElementById('bg-animation').appendChild(line);
+        }
+
+        for (let i = 0; i < 10; i++) {
+            createCircuitLine();
+        }
+
+        // Create glowing dots
+        function createGlowDot() {
+            const dot = document.createElement('div');
+            dot.className = 'glow-dot';
+            dot.style.left = Math.random() * 100 + '%';
+            dot.style.top = Math.random() * 100 + '%';
+            dot.style.animationDelay = Math.random() * 5 + 's';
+            dot.style.animationDuration = (Math.random() * 5 + 8) + 's';
+            document.getElementById('bg-animation').appendChild(dot);
+        }
+
+        for (let i = 0; i < 30; i++) {
+            createGlowDot();
+        }
+
+        // Intersection Observer for cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        document.querySelectorAll('.feature-item').forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(30px)';
+            item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(item);
+        });
+
+        // Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero::before');
+            document.querySelector('.hero').style.transform = `translateY(${scrolled * 0.5}px)`;
+        });
+    </script>
+</body>
+</html>

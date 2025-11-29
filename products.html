@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products | PlagPoint</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0e27;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
+        }
+
+        .glow-dot {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #00d9ff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00d9ff;
+            opacity: 0.4;
+            animation: float-dot 10s infinite ease-in-out;
+        }
+
+        @keyframes float-dot {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(80px, -80px); }
+            50% { transform: translate(160px, 0); }
+            75% { transform: translate(80px, 80px); }
+        }
+
+        /* Header */
+        header {
+            position: relative;
+            z-index: 10;
+            padding: 20px 40px;
+            background: rgba(10, 14, 39, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00d9ff, #7b2ff7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00d9ff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #00d9ff;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: #00d9ff;
+        }
+
+        /* Hero Section */
+        .page-hero {
+            position: relative;
+            z-index: 1;
+            padding: 80px 20px 40px;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, #00d9ff, #7b2ff7, #ff006e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: #a0a0a0;
+            margin-bottom: 50px;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto 50px;
+            padding: 0 20px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            color: #a0a0a0;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover {
+            background: rgba(0, 217, 255, 0.1);
+            color: #00d9ff;
+            border-color: #00d9ff;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #00d9ff, #7b2ff7);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        /* Products Grid */
+        .products-container {
+            position: relative;
+            z-index: 1;
+            padding: 0 20px 100px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-item {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 20px;
+            padding: 25px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 217, 255, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .product-item:hover::before {
+            opacity: 1;
+        }
+
+        .product-item:hover {
+            transform: translateY(-10px);
+            border-color: #00d9ff;
+            box-shadow: 0 20px 40px rgba(0, 217, 255, 0.3);
+            background: rgba(0, 217, 255, 0.05);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: rgba(0, 217, 255, 0.05);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 15px;
+            background: linear-gradient(135deg, #7b2ff7, #ff006e);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .product-info {
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-category {
+            font-size: 0.85rem;
+            color: #7b2ff7;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            color: #fff;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .product-description {
+            font-size: 0.9rem;
+            color: #a0a0a0;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            color: #00d9ff;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-add-cart {
+            flex: 1;
+            padding: 12px;
+            background: linear-gradient(135deg, #00d9ff, #7b2ff7);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-add-cart:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 217, 255, 0.4);
+        }
+
+        .btn-details {
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 10px;
+            color: #00d9ff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-details:hover {
+            background: rgba(0, 217, 255, 0.1);
+            border-color: #00d9ff;
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 1;
+            padding: 40px 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .footer-text {
+            color: #a0a0a0;
+            margin-bottom: 10px;
+        }
+
+        .footer-highlight {
+            color: #00d9ff;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-buttons {
+                gap: 10px;
+            }
+
+            .filter-btn {
+                padding: 10px 20px;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Loading animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-item {
+            animation: fadeIn 0.6s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation" id="bg-animation"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">PlagPoint</div>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="#" class="active">Products</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <h1 class="page-title">Our Products</h1>
+        <p class="page-subtitle">Discover our complete range of premium tech accessories</p>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All Products</button>
+            <button class="filter-btn" data-filter="phone">Phone Accessories</button>
+            <button class="filter-btn" data-filter="chargers">Chargers & Cables</button>
+            <button class="filter-btn" data-filter="audio">Audio</button>
+            <button class="filter-btn" data-filter="electrical">Electrical</button>
+            <button class="filter-btn" data-filter="smart">Smart Devices</button>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="products-container">
+        <div class="products-grid" id="productsGrid">
+            <!-- Products will be generated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p class="footer-text">&copy; 2024 <span class="footer-highlight">PlagPoint</span>. All rights reserved.</p>
+            <p class="footer-text">Your trusted source for electrical and phone accessories</p>
+        </div>
+    </footer>
+
+    <script>
+        // Products data
+        const products = [
+    {
+        id: 1,
+        name: "Fast Charger",
+        category: "chargers",
+        image: "images/img1.jpg",
+        price: "",
+        description: "Fast charging pad compatible with all supported devices",
+        badge: "Popular"
+    },
+    {
+        id: 2,
+        name: "USB-C Cable ",
+        category: "chargers",
+        image: "images/img2.jpg",
+        price: "",
+        description: "Durable braided cable with fast charging support up to 100W",
+        badge: ""
+    },
+    {
+        id: 3,
+        name: "Bluetooth Earbuds",
+        category: "audio",
+        image: "images/img3.jpg",
+        price: "",
+        description: "True wireless earbuds with noise cancellation and 24hr battery life",
+        badge: "New"
+    },
+    {
+        id: 4,
+        name: "Phone Case Premium",
+        category: "phone",
+        image: "images/img4.jpg",
+        price: "",
+        description: "Military-grade protection with slim design for all phone models",
+        badge: ""
+    },
+    {
+        id: 5,
+        name: "20000mAh Power Bank",
+        category: "chargers",
+        image: "images/img5.jpg",
+        price: "",
+        description: "High-capacity portable charger with dual USB ports and LED display",
+        badge: "Popular"
+    },
+    {
+        id: 6,
+        name: "Screen Protector",
+        category: "smart",
+        image: "images/img6.jpg",
+        price: "",
+        description: "Durable and reliable screen protector to ensure your screen security",
+        badge: "New"
+    },
+    {
+        id: 7,
+        name: "Extension Cable",
+        category: "electrical",
+        image: "images/img7.jpg",
+        price: "",
+        description: "Surge protected power strip with 4 sockets or more",
+        badge: ""
+    },
+    {
+        id: 8,
+        name: "Tempered Glass Screen",
+        category: "phone",
+        image: "images/img8.jpg",
+        price: "",
+        description: "9H hardness tempered glass with oleophobic coating",
+        badge: ""
+    },
+    {
+        id: 9,
+        name: "Bluetooth Speaker",
+        category: "audio",
+        image: "images/img9.jpg",
+        price: "",
+        description: "Portable waterproof speaker with 360° sound and 12hr battery",
+        badge: "Popular"
+    },
+    {
+        id: 10,
+        name: "Smart Plug WiFi",
+        category: "smart",
+        image: "images/img10.jpg",
+        price: "",
+        description: "Control any device remotely via app with energy monitoring",
+        badge: ""
+    },
+    {
+        id: 11,
+        name: "Car Phone Mount",
+        category: "phone",
+        image: "images/img11.jpg",
+        price: "",
+        description: "Magnetic car mount with 360° rotation and one-hand operation",
+        badge: ""
+    },
+    {
+        id: 12,
+        name: "Multi-Port Charger 65W",
+        category: "chargers",
+        image: "images/img12.jpg",
+        price: "",
+        description: "GaN fast charger with 4 ports (3 USB-C + 1 USB-A)",
+        badge: "New"
+    },
+    {
+        id: 13,
+        name: "Headset",
+        category: "audio",
+        image: "images/img13.jpg",
+        price: "",
+        description: "7.1 surround sound gaming headset with noise-canceling mic",
+        badge: "Popular"
+    },
+    {
+        id: 14,
+        name: "Pop Socket Stand",
+        category: "phone",
+        image: "images/img14.jpg",
+        price: "",
+        description: "Collapsible grip and stand for phones with swappable design",
+        badge: ""
+    },
+    {
+        id: 15,
+        name: "HDMI Cable",
+        category: "electrical",
+        image: "images/img15.jpg",
+        price: "",
+        description: "4K HDMI 2.1 cable supporting 120Hz refresh rate",
+        badge: ""
+    },
+    {
+        id: 16,
+        name: "Electric Heater",
+        category: "electrical",
+        image: "images/img16.webp",
+        price: "",
+        description: "Reliable Electric Heater Energy saving and powerfull",
+        badge: ""
+    },
+    {
+        id: 17,
+        name: "Light Bulb",
+        category: "electrical",
+        image: "images/img17.jpg",
+        price: "",
+        description: "Long-lasting and perfectly bright light bulb",
+        badge: "New"
+    },
+    {
+        id: 18,
+        name: "Smart Watch",
+        category: "chargers",
+        image: "images/img18.jpg",
+        price: "",
+        description: "Classic elegant smart watch for daily wear",
+        badge: ""
+    }
+];
+
+        // Render products
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+
+            const filteredProducts = filter === 'all' 
+                ? products 
+                : products.filter(p => p.category === filter);
+
+            filteredProducts.forEach((product, index) => {
+                const productHTML = `
+                    <div class="product-item" style="animation-delay: ${index * 0.05}s">
+                        <div class="product-image">
+                            <img src="${product.image || ('images/' + product.category + '.svg')}" alt="${product.name}">
+                            ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">${product.category}</div>
+                            <h3 class="product-name">${product.name}</h3>
+                            <p class="product-description">${product.description}</p>
+                            <div class="product-price">TZS ${product.price}</div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart">Add to Cart</button>
+                                <button class="btn-details">📄</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += productHTML;
+            });
+        }
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.getAttribute('data-filter');
+                renderProducts(filter);
+            });
+        });
+
+        // Create glowing dots
+        function createGlowDot() {
+            const dot = document.createElement('div');
+            dot.className = 'glow-dot';
+            dot.style.left = Math.random() * 100 + '%';
+            dot.style.top = Math.random() * 100 + '%';
+            dot.style.animationDelay = Math.random() * 5 + 's';
+            dot.style.animationDuration = (Math.random() * 5 + 10) + 's';
+            document.getElementById('bg-animation').appendChild(dot);
+        }
+
+        for (let i = 0; i < 40; i++) {
+            createGlowDot();
+        }
+
+        // Initial render
+        renderProducts();
+
+        // Add to cart functionality
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('btn-add-cart')) {
+                e.target.textContent = 'Added ✓';
+                e.target.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                setTimeout(() => {
+                    e.target.textContent = 'Add to Cart';
+                    e.target.style.background = 'linear-gradient(135deg, #00d9ff, #7b2ff7)';
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
